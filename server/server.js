@@ -186,3 +186,35 @@ app.get('/api/characters/:id/films', async (req,res) => {
         return res.status(404).send("Did Not Work");
     }
 });
+
+//adding /api/planets/:id/films
+app.get('/api/planets/:id/films', async (req,res) => {
+    try{
+        const {id} = req.params;
+        const client = await MongoClient.connect(MONGO_DB_URL);
+        const db = client.db(MONGO_DB);
+        const collection = db.collection('films_planets');
+        const films = await collection.find({planet_id:+id}).toArray();
+        res.json(films);
+    }
+    catch (err) {
+        console.error("Error:", err);
+        return res.status(404).send("Did Not Work");
+    }
+});
+
+//adding /api/planets/:id/characters
+app.get('/api/planets/:id/characters', async (req,res) => {
+    try{
+        const {id} = req.params;
+        const client = await MongoClient.connect(MONGO_DB_URL);
+        const db = client.db(MONGO_DB);
+        const collection = db.collection('characters');
+        const characters = await collection.find({homeworld:+id}).toArray();
+        res.json(characters);
+    }
+    catch (err) {
+        console.error("Error:", err);
+        return res.status(404).send("Did Not Work");
+    }
+});
