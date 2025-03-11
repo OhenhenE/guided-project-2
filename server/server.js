@@ -10,6 +10,8 @@ app.listen(PORT,() => console.log() )
 const MONGO_DB_URL = 'mongodb://localhost:27017';
 const MONGO_DB = 'swapi';
 
+//todo organize endpoints
+
 app.get('/api/planets', async (req,res) => {
     try{
         const client = await MongoClient.connect(MONGO_DB_URL);
@@ -87,12 +89,97 @@ app.get('/api/films_planets', async (req,res) => {
 //adding /api/characters/:id
 app.get('/api/characters/:id', async (req,res) => {
     try{
-        const {character_id} = req.params;
+        const {id} = req.params;
         const client = await MongoClient.connect(MONGO_DB_URL);
         const db = client.db(MONGO_DB);
         const collection = db.collection('characters');
-        const characters_id = await collection.find({id:+character_id}).toArray();
-        res.json(characters_id);
+        const character = await collection.find({id:+id}).toArray();
+        res.json(character);
+    }
+    catch (err) {
+        console.error("Error:", err);
+        return res.status(404).send("Did Not Work");
+    }
+});
+
+
+//adding /api/planets/:id
+app.get('/api/planets/:id', async (req,res) => {
+    try{
+        const {id} = req.params;
+        const client = await MongoClient.connect(MONGO_DB_URL);
+        const db = client.db(MONGO_DB);
+        const collection = db.collection('planets');
+        const planet = await collection.find({id:+id}).toArray();
+        res.json(planet);
+    }
+    catch (err) {
+        console.error("Error:", err);
+        return res.status(404).send("Did Not Work");
+    }
+});
+
+
+//adding /api/films/:id
+app.get('/api/films/:id', async (req,res) => {
+    try{
+        const {id} = req.params;
+        const client = await MongoClient.connect(MONGO_DB_URL);
+        const db = client.db(MONGO_DB);
+        const collection = db.collection('films');
+        const films = await collection.find({id:+id}).toArray();
+        res.json(films);
+    }
+    catch (err) {
+        console.error("Error:", err);
+        return res.status(404).send("Did Not Work");
+    }
+});
+
+
+//adding /api/films/:id/characters
+app.get('/api/films/:id/characters', async (req,res) => {
+    try{
+        const {id} = req.params;
+        const client = await MongoClient.connect(MONGO_DB_URL);
+        const db = client.db(MONGO_DB);
+        const collection = db.collection('films_characters');
+        const characters = await collection.find({film_id:+id}).toArray();
+        res.json(characters);
+    }
+    catch (err) {
+        console.error("Error:", err);
+        return res.status(404).send("Did Not Work");
+    }
+});
+
+
+//adding /api/films/:id/planets
+app.get('/api/films/:id/planets', async (req,res) => {
+    try{
+        const {id} = req.params;
+        const client = await MongoClient.connect(MONGO_DB_URL);
+        const db = client.db(MONGO_DB);
+        const collection = db.collection('films_planets');
+        const planets = await collection.find({film_id:+id}).toArray();
+        res.json(planets);
+    }
+    catch (err) {
+        console.error("Error:", err);
+        return res.status(404).send("Did Not Work");
+    }
+});
+
+
+//adding /api/characters/:id/films
+app.get('/api/characters/:id/films', async (req,res) => {
+    try{
+        const {id} = req.params;
+        const client = await MongoClient.connect(MONGO_DB_URL);
+        const db = client.db(MONGO_DB);
+        const collection = db.collection('films_characters');
+        const characters = await collection.find({character_id:+id}).toArray();
+        res.json(characters);
     }
     catch (err) {
         console.error("Error:", err);
