@@ -4,6 +4,7 @@ import './App.css'
 import Search from './components/Search.jsx'
 import CharacterList from './components/CharacterList.jsx'
 import CharacterProfile from './components/CharacterProfile.jsx';
+import FilmProfile from './components/FilmProfile.jsx';
 
 import {
   BrowserRouter as Router,
