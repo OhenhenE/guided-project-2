@@ -1,4 +1,4 @@
-import Character from './Character.jsx'
+import CharacterHome from './CharacterHome.jsx'
 
 const CharacterList =  (props) => {
     return (
@@ -6,7 +6,7 @@ const CharacterList =  (props) => {
                 <div> 
                     {
                         props.characters.map((character) => (
-                            <Character key={character._id} character={character} />
+                            <CharacterHome key={character._id} character={character} />
                         ))
                     }
                 </div>
