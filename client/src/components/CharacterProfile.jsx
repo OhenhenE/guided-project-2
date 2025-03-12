@@ -51,6 +51,7 @@ const CharacterProfile = (props) => {
         charFilms.some(cf => cf.film_id === film.id)
     );
 
+    const planet = props.planets.find(planet => planet.id === character.homeworld);
 
     return (
         <>
@@ -60,12 +61,12 @@ const CharacterProfile = (props) => {
             <p>Born: {character.birth_year} </p>
 
             <h2>Homeworld</h2>
-            <p><Link to={`/characters/${character.homeworld}`}>{/*result of logic aout workld assoc*/}</Link></p>
+            <p><Link to={`/characters/${planet.id}`}>{planet.name}</Link></p>
 
             <h2>Films appeared in</h2>
             <ul>{
                     filteredFilms.map((film) => (
-                        <Film key={filteredFilms._id} film={filteredFilms} />
+                        <Film key={film._id} film={film} />
                     ))
                 }
             </ul>
