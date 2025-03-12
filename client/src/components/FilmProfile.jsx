@@ -4,23 +4,19 @@ import {useParams, Link} from "react-router-dom"
 
 const FilmProfile = (props) => {
 
-    // fetch to get character by id
-    // fetch film to character relationship here 
-    // 
-
     const [film, setFilms] = useState([]);
-    // const [charFilms, setCharFilms] = useState([]);
+    const [filmCharacters, setfilmCharacters] = useState([]);
     let {id} = useParams();
     
       useEffect(() => {
-        const fetchCharacterByID = async () => {
+        const fetchFilmByID = async () => {
           try {
-            const response = await fetch(`${BASE_URL}/api/characters/${id}`);
+            const response = await fetch(`${BASE_URL}/api/films/${id}`);
             if (!response.ok) {
-              throw new Error('character not fetched');
+              throw new Error('film not fetched');
             }
             const json_response = await response.json();
-            setCharacter(json_response);
+            setFilms(json_response);
           }
           catch (err) {
             console.error('error occured fetching character', error);
@@ -29,12 +25,12 @@ const FilmProfile = (props) => {
 
         const fetchCharacterFilmAssociation = async () => {
             try {
-              const response = await fetch(`${BASE_URL}/api/characters/${id}/films`);
+              const response = await fetch(`${BASE_URL}/api/films/${id}/characters`);
               if (!response.ok) {
                 throw new Error('character-film associations not fetched');
               }
               const json_response = await response.json();
-              setCharFilms(json_response);
+              setfilmCharacters(json_response);
             }
             catch (err) {
               console.error('error occured fetching character-film associations', error);
@@ -42,16 +38,16 @@ const FilmProfile = (props) => {
           };
 
 
-        fetchCharacterFilmAssociation()
-        fetchCharacterByID();
+        fetchCharacterFilmAssociation();
+        fetchFilmByID();
       }, []);
     
 
     const filteredCharacters = props.films.filter(film => 
-        charFilms.some(cf => cf.film_id === film.id)
+        filmCharacters.some(cf => cf.film_id === film.id)
     );
 
-    const planet = props.planets.find(planet => planet.id === film.homeworld);
+   // const planet = props.planets.find(planet => planet.id === film.homeworld);
 
     return (
         <>
@@ -61,9 +57,6 @@ const FilmProfile = (props) => {
             <p>Director:  {film.director} </p>
             <p>Release Date: {film.release_date} </p>
 
-            <h2>Planets</h2>
-            <p><Link to={`/characters/${planet.id}`}>{planet.name}</Link></p>
-
             <h2>Characters From {film.title}</h2>
             <ul>{
                     filteredCharacters.map((film) => (
@@ -72,7 +65,7 @@ const FilmProfile = (props) => {
                 }
             </ul>
 
-            <h2>Films appeared in</h2>
+            <h2>Films appeared in {film.title}</h2>
             <ul>{
                     filteredCharacters.map((film) => (
                         <Film key={film._id} film={film} />
