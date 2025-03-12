@@ -4,6 +4,8 @@ import './App.css'
 import Search from './components/Search.jsx'
 import CharacterList from './components/CharacterList.jsx'
 import CharacterProfile from './components/CharacterProfile.jsx';
+import FilmProfile from './components/FilmProfile.jsx';
+import PlanetProfile from './components/PlanetProfile.jsx';
 
 import {
   BrowserRouter as Router,
@@ -80,6 +82,9 @@ function App() {
           </>
         } />
         <Route path="/character/:id" element={<CharacterProfile planets={planets} films={films}/>} />
+        <Route path="/planet/:id" element={<FilmProfile characters={characters} films={films}/>} />
+        <Route path="/film/:id" element={<PlanetProfile characters={characters} planets={planets}/>} />
+
       </Routes>
       <Search />
       <CharacterList />

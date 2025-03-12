@@ -4,10 +4,6 @@ import {useParams, Link} from "react-router-dom"
 
 const CharacterProfile = (props) => {
 
-    // fetch to get character by id
-    // fetch film to character relationship here 
-    // 
-
     const [character, setCharacter] = useState([]);
     const [charFilms, setCharFilms] = useState([]);
     let {id} = useParams();
@@ -55,13 +51,13 @@ const CharacterProfile = (props) => {
 
     return (
         <>
-            <h1 id="name">{character.name}</h1>
+            <h1>{character.name}</h1>
             <p>Height: {character.height} cm</p>
             <p>Mass:  {character.mass} kg</p>
             <p>Born: {character.birth_year} </p>
 
             <h2>Homeworld</h2>
-            <p><Link to={`/characters/${planet.id}`}>{planet.name}</Link></p>
+            <p><Link to={`/planets/${planet.id}`}>{planet.name}</Link></p>
 
             <h2>Films appeared in</h2>
             <ul>{
@@ -76,4 +72,3 @@ const CharacterProfile = (props) => {
 
 export default CharacterProfile;
 
-//`/character.html?id=${id}`
