@@ -1,10 +1,10 @@
 const Search = () => {
     return (
         <>
-            <label for="searchString">Who you looking for? <span class="small">
+            <label for="searchString">Who you looking for? <span>
                 (Regular expressions are cool here)
             </span></label>
-            <input id="searchString" oninput="filterCharacters()" autocomplete="off" />
+            <input autocomplete="off" />
         </>
     )
 };

@@ -14,9 +14,10 @@ import {
   Link
 } from "react-router-dom";
 
-BASE_URL = 'http://localhost:3000/'
-
 function App() {
+
+  const BASE_URL = 'http://localhost:3000'
+
   const [characters, setCharacters] = useState([]);
   const [films, setFilms] = useState([]);
   const [planets, setPlanets] = useState([]);
@@ -73,21 +74,21 @@ function App() {
 
   return (
     <>
-      <h1>Star Wars Universe Lookup</h1>
-      <Routes>
-        <Route exact path="/" element={
-          <>
-            <Search />
-            <CharacterList characters={characters}/>
-          </>
-        } />
-        <Route path="/character/:id" element={<CharacterProfile planets={planets} films={films}/>} />
-        <Route path="/planet/:id" element={<FilmProfile characters={characters} films={films}/>} />
-        <Route path="/film/:id" element={<PlanetProfile characters={characters} planets={planets}/>} />
+      <Router>
+        <h1>Star Wars Universe Lookup</h1>
+        <Routes>
+          <Route exact path="/" element={
+            <>
+              <Search />
+              <CharacterList characters={characters} />
+            </>
+          } />
+          <Route path="/characters/:id" element={<CharacterProfile planets={planets} films={films} />} />
+          <Route path="/planets/:id" element={<FilmProfile characters={characters} films={films} />} />
+          <Route path="/films/:id" element={<PlanetProfile characters={characters} planets={planets} />} />
 
-      </Routes>
-      <Search />
-      <CharacterList />
+        </Routes>
+      </Router>
     </>
   )
 }
