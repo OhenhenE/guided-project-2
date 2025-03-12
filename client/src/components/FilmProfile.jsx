@@ -5,7 +5,7 @@ import { useParams, Link } from "react-router-dom";
 
 const FilmProfile = (props) => {
 
-    const [film, setCharacter] = useState([]);
+    const [film, setFilm] = useState([]);
     const [charFilms, setCharFilms] = useState([]);
     const [planFilms, setPlanFilms] = useState([]);
 
@@ -19,7 +19,7 @@ const FilmProfile = (props) => {
                     throw new Error('film not fetched');
                 }
                 const json_response = await response.json();
-                setCharacter(json_response);
+                setFilm(json_response);
             }
             catch (err) {
                 console.error('error occured fetching film', error);
